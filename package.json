@@ -4,11 +4,12 @@
   "private": true,
   "description": "Moodle 5.0.1 LMS configured for GitHub Codespaces with multi-platform deployment",
   "scripts": {
-    "start": "./start.sh",
+    "start": "php -S 0.0.0.0:${PORT:-8080}",
     "dev": "./start.sh", 
     "setup": "bash .devcontainer/setup.sh",
     "helper": "./moodle-helper.sh",
     "deploy:oracle": "bash deployment/deploy-oracle.sh",
+    "deploy:railway": "echo 'Push to GitHub to deploy to Railway'",
     "test": "php -l config.php && echo 'Configuration syntax OK'"
   },
   "devDependencies": {

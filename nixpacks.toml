@@ -1,0 +1,24 @@
+[phases.setup]
+nixPkgs = ["php81", "php81Packages.composer", "postgresql"]
+
+[phases.install]
+cmds = [
+    "php -m",
+    "mkdir -p /tmp/moodledata",
+    "chmod 777 /tmp/moodledata"
+]
+
+[phases.build]
+cmds = ["echo 'Moodle build complete'"]
+
+[start]
+cmd = "./railway-start.sh"
+
+[phases.build]
+cmds = [
+    "cp config-railway.php config.php",
+    "echo 'Railway deployment configuration applied'"
+]
+
+[start]
+cmd = "php -S 0.0.0.0:$PORT"
