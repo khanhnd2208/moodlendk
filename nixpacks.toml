@@ -9,16 +9,10 @@ cmds = [
 ]
 
 [phases.build]
-cmds = ["echo 'Moodle build complete'"]
-
-[start]
-cmd = "./railway-start.sh"
-
-[phases.build]
 cmds = [
     "cp config-railway.php config.php",
     "echo 'Railway deployment configuration applied'"
 ]
 
 [start]
-cmd = "php -S 0.0.0.0:$PORT"
+cmd = "./railway-start.sh"
