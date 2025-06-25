@@ -27,6 +27,7 @@ sudo apt-get install -y \
     php8.1-soap \
     php8.1-intl \
     php8.1-opcache \
+    mysql-server \
     mysql-client
 
 # Configure PHP for Moodle
@@ -41,13 +42,44 @@ max_execution_time = 300
 max_input_vars = 5000
 EOF
 
-# Wait for MySQL to be ready (when using Docker Compose)
+# Start and configure MySQL
+echo -e "${YELLOW}🗄️  Setting up MySQL...${NC}"
+sudo service mysql start
+
+# Wait for MySQL to be ready
 echo -e "${YELLOW}⏳ Waiting for MySQL to be ready...${NC}"
 for i in {1..30}; do
-    if mysql -h mysql -u root -proot -e "SELECT 1" >/dev/null 2>&1; then
+    if mysql -u root -e "SELECT 1" >/dev/null 2>&1; then
         echo -e "${GREEN}✅ MySQL is ready${NC}"
         break
     fi
+    sleep 1
+done
+
+# Create Moodle database and user
+echo -e "${YELLOW}🔧 Creating Moodle database...${NC}"
+mysql -u root << 'EOF'
+CREATE DATABASE IF NOT EXISTS moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS 'moodleuser'@'localhost' IDENTIFIED BY 'CodespacePass123!';
+GRANT ALL PRIVILEGES ON moodle.* TO 'moodleuser'@'localhost';
+FLUSH PRIVILEGES;
+EOF
+
+# Create moodledata directory
+echo -e "${YELLOW}📁 Creating moodledata directory...${NC}"
+sudo mkdir -p /workspaces/moodledata
+sudo chown -R vscode:vscode /workspaces/moodledata
+sudo chmod -R 755 /workspaces/moodledata
+
+# Create config.php if it doesn't exist
+if [ ! -f "/workspaces/moodlendk/config.php" ]; then
+    echo -e "${YELLOW}⚙️  Creating config.php...${NC}"
+    cp /workspaces/moodlendk/config-codespaces-sample.php /workspaces/moodlendk/config.php
+fi
+
+echo -e "${GREEN}✅ Moodle setup completed!${NC}"
+echo -e "${BLUE}🚀 You can now start Moodle with: ./start.sh${NC}"
+echo -e "${BLUE}🌐 Access URL: https://\$CODESPACE_NAME-8080.app.github.dev${NC}"
     echo "Waiting for MySQL... ($i/30)"
     sleep 2
 done

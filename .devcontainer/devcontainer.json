@@ -1,14 +1,14 @@
 {
   "name": "Moodle 5.0.1 Development Environment",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "php",
-  "workspaceFolder": "/workspace",
+  "image": "mcr.microsoft.com/devcontainers/php:8.1",
+  "workspaceFolder": "/workspaces/moodlendk",
   
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/node:1": {
       "version": "18"
-    }
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   
   "customizations": {
@@ -31,15 +31,11 @@
     }
   },
   
-  "forwardPorts": [8080, 3306, 80],
+  "forwardPorts": [8080, 3306],
   
   "portsAttributes": {
     "8080": {
       "label": "Moodle Development Server",
-      "onAutoForward": "notify"
-    },
-    "80": {
-      "label": "Nginx Server", 
       "onAutoForward": "notify"
     },
     "3306": {
