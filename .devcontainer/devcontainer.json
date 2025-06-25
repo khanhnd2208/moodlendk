@@ -1,13 +1,13 @@
 {
   "name": "Moodle 5.0.1 Development Environment",
-  "image": "mcr.microsoft.com/devcontainers/php:8.1",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "php",
+  "workspaceFolder": "/workspace",
   
   "features": {
-    "ghcr.io/devcontainers/features/mysql:1": {
-      "version": "8.0"
-    },
-    "ghcr.io/devcontainers/features/nginx:1": {
-      "version": "latest"
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
     }
   },
   
@@ -15,11 +15,15 @@
     "vscode": {
       "extensions": [
         "bmewburn.vscode-intelephense-client",
-        "esbenp.prettier-vscode",
         "ms-vscode.vscode-json",
-        "bradlc.vscode-tailwindcss",
         "formulahendry.auto-rename-tag",
-        "christian-kohler.path-intellisense"
+        "bradlc.vscode-tailwindcss",
+        "christian-kohler.path-intellisense",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-php-debug",
+        "xdebug.php-debug",
+        "formulahendry.code-runner",
+        "ms-vscode.sublime-commands"
       ],
       "settings": {
         "php.validate.executablePath": "/usr/local/bin/php",
@@ -33,12 +37,7 @@
     }
   },
   
-  "forwardPorts": [
-    8080,
-    3306,
-    80,
-    443
-  ],
+  "forwardPorts": [8080, 3306, 80, 443, 8081],
   
   "portsAttributes": {
     "8080": {
@@ -52,10 +51,15 @@
     "3306": {
       "label": "MySQL Database",
       "onAutoForward": "ignore"
+    },
+    "8081": {
+      "label": "phpMyAdmin",
+      "onAutoForward": "silent"
     }
   },
   
   "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "echo '🚀 Moodle 5.0.1 Codespace is ready!'",
   
   "remoteUser": "vscode"
 }

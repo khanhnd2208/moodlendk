@@ -1,0 +1,119 @@
+name: 🚀 Moodle 5.0.1 CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: 🧪 PHP Tests
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: moodle_test
+          MYSQL_USER: moodleuser
+          MYSQL_PASSWORD: testpass
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    strategy:
+      matrix:
+        php-version: [8.1]
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🐘 Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mysqli, xml, curl, zip, gd, mbstring, xmlrpc, soap, intl, json, opcache
+        coverage: none
+
+    - name: 📋 Validate PHP syntax
+      run: find . -name "*.php" -exec php -l {} \;
+
+    - name: 🔧 Check Moodle structure
+      run: |
+        if [ ! -f "config-dist.php" ]; then
+          echo "❌ config-dist.php not found!"
+          exit 1
+        fi
+        if [ ! -d "admin" ]; then
+          echo "❌ admin directory not found!"
+          exit 1
+        fi
+        echo "✅ Moodle structure validated"
+
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔍 Run security scan
+      uses: securecodewarrior/github-action-add-sarif@v1
+      with:
+        sarif-file: 'security-scan.sarif'
+      continue-on-error: true
+
+  deploy-staging:
+    name: 🚀 Deploy to Staging
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Setup deployment
+      run: |
+        echo "🚀 Deploying to staging environment..."
+        # Add your staging deployment commands here
+
+  deploy-production:
+    name: 🎯 Deploy to Production
+    needs: [test, security-scan]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🎯 Deploy to production
+      id: deploy
+      run: |
+        echo "🎯 Deploying to production..."
+        # Add your production deployment commands here
+        echo "url=https://your-production-url.com" >> $GITHUB_OUTPUT
+
+  notify:
+    name: 📢 Notification
+    needs: [deploy-production]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: 📢 Send notification
+      run: |
+        if [ "${{ needs.deploy-production.result }}" == "success" ]; then
+          echo "✅ Deployment successful!"
+        else
+          echo "❌ Deployment failed!"
+        fi
