@@ -1,0 +1,82 @@
+# Moodle specific files
+config.php.bak
+/moodledata/
+/moodledata_*
+/moodledata*/
+/moodledata/*/
+/moodledata/*
+
+# Backup files
+*.sql
+*.sql.gz
+*.sql.bz2
+backup_*.sql
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# IDE files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+/var/log/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Cache
+cache/
+/cache/
+
+# Uploads (development)
+uploads/
+files/
+
+# Local development
+.vagrant/
+.docker/
+
+# Composer
+vendor/
+
+# PHP
+composer.phar
+
+# Build artifacts
+build/
+dist/
+
+# Testing
+coverage/
+.phpunit.result.cache
+
+# Deployment
+deployment/*.env
+deployment/secrets/
+
+# Platform specific
+.codespaces/
+.github/copilot-chat/
+
+# Moodle install/upgrade lock
+/config-dist.php

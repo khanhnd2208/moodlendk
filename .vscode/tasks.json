@@ -1,0 +1,123 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Moodle Server",
+            "type": "shell",
+            "command": "php",
+            "args": ["-S", "0.0.0.0:8080"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Setup Environment",
+            "type": "shell",
+            "command": "bash",
+            "args": [".devcontainer/setup.sh"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Start MySQL",
+            "type": "shell",
+            "command": "sudo",
+            "args": ["service", "mysql", "start"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Restart Services",
+            "type": "shell",
+            "command": "sudo",
+            "args": ["bash", "-c", "service mysql restart && service nginx restart && service php8.1-fpm restart"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Check PHP Configuration",
+            "type": "shell",
+            "command": "php",
+            "args": ["-m"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Test Database Connection",
+            "type": "shell",
+            "command": "mysql",
+            "args": ["-u", "moodleuser", "-p", "-e", "SHOW DATABASES;"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Deploy to Oracle Cloud",
+            "type": "shell",
+            "command": "bash",
+            "args": ["deployment/deploy-oracle.sh"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Deploy to DigitalOcean",
+            "type": "shell",
+            "command": "bash",
+            "args": ["deployment/deploy-digitalocean.sh"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Backup Database",
+            "type": "shell",
+            "command": "mysqldump",
+            "args": ["-u", "moodleuser", "-p", "moodle"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always"
+            },
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": ["-c", "mysqldump -u moodleuser -p moodle > backup_$(date +%Y%m%d_%H%M%S).sql"]
+                }
+            }
+        }
+    ]
+}
