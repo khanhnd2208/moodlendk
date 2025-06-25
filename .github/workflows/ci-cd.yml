@@ -61,59 +61,10 @@ jobs:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
       
-    - name: 🔍 Run security scan
-      uses: securecodewarrior/github-action-add-sarif@v1
-      with:
-        sarif-file: 'security-scan.sarif'
-      continue-on-error: true
-
-  deploy-staging:
-    name: 🚀 Deploy to Staging
-    needs: [test]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
-    
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-      
-    - name: 🔧 Setup deployment
+    - name: 🔍 Basic security check
       run: |
-        echo "🚀 Deploying to staging environment..."
-        # Add your staging deployment commands here
-
-  deploy-production:
-    name: 🎯 Deploy to Production
-    needs: [test, security-scan]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    
-    environment:
-      name: production
-      url: ${{ steps.deploy.outputs.url }}
-    
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-      
-    - name: 🎯 Deploy to production
-      id: deploy
-      run: |
-        echo "🎯 Deploying to production..."
-        # Add your production deployment commands here
-        echo "url=https://your-production-url.com" >> $GITHUB_OUTPUT
-
-  notify:
-    name: 📢 Notification
-    needs: [deploy-production]
-    runs-on: ubuntu-latest
-    if: always()
-    
-    steps:
-    - name: 📢 Send notification
-      run: |
-        if [ "${{ needs.deploy-production.result }}" == "success" ]; then
-          echo "✅ Deployment successful!"
-        else
-          echo "❌ Deployment failed!"
-        fi
+        echo "🔍 Running basic security checks..."
+        # Check for common security issues
+        grep -r "eval(" . --include="*.php" && echo "❌ eval() found!" && exit 1 || echo "✅ No eval() found"
+        grep -r "\$_GET\[" . --include="*.php" | head -5 && echo "⚠️  Direct \$_GET usage found" || echo "✅ No direct \$_GET usage"
+        echo "✅ Basic security scan complete"

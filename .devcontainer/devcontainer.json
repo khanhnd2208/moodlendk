@@ -16,14 +16,8 @@
       "extensions": [
         "bmewburn.vscode-intelephense-client",
         "ms-vscode.vscode-json",
-        "formulahendry.auto-rename-tag",
-        "bradlc.vscode-tailwindcss",
-        "christian-kohler.path-intellisense",
-        "esbenp.prettier-vscode",
         "ms-vscode.vscode-php-debug",
-        "xdebug.php-debug",
-        "formulahendry.code-runner",
-        "ms-vscode.sublime-commands"
+        "formulahendry.code-runner"
       ],
       "settings": {
         "php.validate.executablePath": "/usr/local/bin/php",
@@ -37,7 +31,7 @@
     }
   },
   
-  "forwardPorts": [8080, 3306, 80, 443, 8081],
+  "forwardPorts": [8080, 3306, 80],
   
   "portsAttributes": {
     "8080": {
@@ -45,16 +39,12 @@
       "onAutoForward": "notify"
     },
     "80": {
-      "label": "Nginx Server",
+      "label": "Nginx Server", 
       "onAutoForward": "notify"
     },
     "3306": {
       "label": "MySQL Database",
       "onAutoForward": "ignore"
-    },
-    "8081": {
-      "label": "phpMyAdmin",
-      "onAutoForward": "silent"
     }
   },
   
