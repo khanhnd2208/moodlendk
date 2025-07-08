@@ -17,16 +17,32 @@ A complete Moodle 5.0.1 Learning Management System optimized for GitHub Codespac
 
 ## 🚀 Quick Start
 
-### 1. Open in GitHub Codespaces
+### 🌐 Want to Host on GitHub? 
+**Yes, you can!** While GitHub doesn't directly host PHP apps, we provide the **perfect GitHub-integrated solution**:
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/moodle)
+
+**✅ One-click deployment from GitHub**  
+**✅ Auto-deploys when you push changes**  
+**✅ Live public URL with SSL**  
+**✅ Managed database included**
+
+[📖 **Complete GitHub Hosting Guide**](GITHUB_HOSTING_GUIDE.md) | [🚀 **Railway Deployment Guide**](deploy-to-railway.md)
+
+### 💻 Development Options
+
+#### Option 1: GitHub Codespaces (Recommended for Development)
 1. Click the green "Code" button → "Codespaces" → "New codespace"
 2. Wait for automatic setup (5-10 minutes)
 3. Run: `./start.sh`
+4. Access: `https://[your-codespace]-8080.app.github.dev`
 
-### 2. Access Moodle
-- Codespaces: `https://[your-codespace]-8080.app.github.dev`
-- Local: `http://localhost:8080`
+#### Option 2: Local Development
+1. Clone this repository
+2. Run: `./start.sh`
+3. Access: `http://localhost:8080`
 
-### 3. Management Helper
+### 🔧 Management Helper
 Use the unified management script for all tasks:
 ```bash
 ./moodle-helper.sh
@@ -52,7 +68,23 @@ Use the unified management script for all tasks:
 
 ## 🚀 Deployment Options
 
-### Oracle Cloud Free Tier (Recommended)
+### 🌟 Railway.app (GitHub-Integrated Hosting)
+**Best for**: GitHub users who want seamless deployment
+```bash
+# 1. Go to railway.app and login with GitHub
+# 2. Click "Deploy from GitHub repo"
+# 3. Select this repository
+# 4. Your site is live in 3-5 minutes!
+```
+- ✅ **Auto-deploys from GitHub pushes**
+- ✅ **Managed PostgreSQL database**
+- ✅ **Free tier with $5/month credit**
+- ✅ **Custom domains supported**
+
+[🚀 **One-Click Railway Deployment**](deploy-to-railway.md)
+
+### ☁️ Oracle Cloud Free Tier
+**Best for**: Maximum resources and control
 ```bash
 ./deployment/deploy-oracle.sh
 ```
@@ -60,17 +92,19 @@ Use the unified management script for all tasks:
 - Always free tier eligible
 - ARM processor optimized
 
-### DigitalOcean VPS
+### 🌊 DigitalOcean VPS
+**Best for**: Full control and customization
 ```bash
 ./deployment/deploy-digitalocean.sh
 ```
 - Full control and customization
 - Scalable resources
 
-### Railway.app (Quick Deploy)
-- Connect GitHub repository
-- Automatic deployments
-- PostgreSQL included
+### 📄 GitHub Pages (Documentation)
+**Best for**: Project documentation and landing pages
+- Enable in repository settings
+- Perfect for showcasing your Moodle project
+- See `/docs/index.html` for the landing page
 
 ## ⚙️ Configuration
 
@@ -90,12 +124,24 @@ The `moodle-helper.sh` script provides:
 - 🧹 Cache cleaning
 - 🧪 Syntax testing
 
+**NEW:** GitHub Hosting Setup
+```bash
+./setup-github-hosting.sh
+```
+- 🌐 Verify GitHub hosting configuration
+- 📋 Show all available deployment options
+- 📄 GitHub Pages setup instructions
+- 🚀 Railway.app deployment guide
+
 ## 📚 Documentation
 
-- [GitHub Codespaces Guide](CODESPACES_GUIDE.md)
-- [Development Workflow](DEVELOPMENT_WORKFLOW.md)
-- [Moodle Development Guide](MOODLE_DEVELOPMENT_GUIDE.md)
-- [Security Guidelines](SECURITY.md)
+- [🌐 GitHub Hosting Guide](GITHUB_HOSTING_GUIDE.md) - **NEW!** Complete guide to hosting on GitHub
+- [🚀 Railway Deployment Guide](deploy-to-railway.md) - **NEW!** One-click deployment
+- [💻 GitHub Codespaces Guide](CODESPACES_GUIDE.md) - Development environment setup
+- [🔄 Development Workflow](DEVELOPMENT_WORKFLOW.md) - From dev to production
+- [📖 Moodle Development Guide](MOODLE_DEVELOPMENT_GUIDE.md) - Moodle customization
+- [🔒 Security Guidelines](SECURITY.md) - Security best practices
+- [📄 GitHub Pages](docs/index.html) - Project landing page
 
 ## 🤝 Contributing
 

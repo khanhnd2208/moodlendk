@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodle 5.0.1 - GitHub Codespaces Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            padding: 60px 0;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .btn-secondary {
+            background: #28a745;
+        }
+        
+        .btn-secondary:hover {
+            background: #218838;
+        }
+        
+        .features {
+            background: white;
+            margin: 50px 0;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .features h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Moodle 5.0.1</h1>
+            <p>Complete Learning Management System optimized for GitHub Codespaces with one-click deployment capabilities</p>
+        </div>
+        
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>One-Click Deployment</h3>
+                <p>Deploy your complete Moodle LMS to Railway.app in under 5 minutes with automatic GitHub integration.</p>
+                <a href="https://railway.app/template/moodle" class="btn btn-secondary">Deploy Now</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <h3>GitHub Codespaces</h3>
+                <p>Develop and test in a fully configured cloud environment with PHP 8.1, MySQL, and all dependencies.</p>
+                <a href="https://github.com/khanhnd2208/moodlendk" class="btn">Start Coding</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <h3>Documentation</h3>
+                <p>Comprehensive guides for development, deployment, and customization of your Moodle instance.</p>
+                <a href="#documentation" class="btn">Read Docs</a>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>✨ Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🚀</div>
+                    <h4>GitHub Ready</h4>
+                    <p>Pre-configured devcontainer with all dependencies</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🐳</div>
+                    <h4>Docker Compose</h4>
+                    <p>Simplified container management and deployment</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔧</div>
+                    <h4>Unified Management</h4>
+                    <p>Single helper script for all development tasks</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📦</div>
+                    <h4>Multi-Platform</h4>
+                    <p>Deploy to Railway, Oracle Cloud, or DigitalOcean</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Security Optimized</h4>
+                    <p>Production-ready configurations and best practices</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Performance Tuned</h4>
+                    <p>ARM processor compatibility and optimizations</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="documentation" class="features">
+            <h2>📖 Documentation</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <h4>🌐 GitHub Hosting Guide</h4>
+                    <p>Complete guide to hosting options and GitHub integration</p>
+                    <a href="../GITHUB_HOSTING_GUIDE.md" class="btn">Read Guide</a>
+                </div>
+                <div class="feature">
+                    <h4>🚀 Railway Deployment</h4>
+                    <p>Step-by-step Railway.app deployment instructions</p>
+                    <a href="../deploy-to-railway.md" class="btn">Deploy Guide</a>
+                </div>
+                <div class="feature">
+                    <h4>💻 Codespaces Setup</h4>
+                    <p>How to use GitHub Codespaces for development</p>
+                    <a href="../CODESPACES_GUIDE.md" class="btn">Setup Guide</a>
+                </div>
+                <div class="feature">
+                    <h4>🔄 Development Workflow</h4>
+                    <p>From development to production deployment</p>
+                    <a href="../DEVELOPMENT_WORKFLOW.md" class="btn">Workflow Guide</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Built with ❤️ for the GitHub community | <a href="https://github.com/khanhnd2208/moodlendk" style="color: white;">View on GitHub</a></p>
+        </div>
+    </div>
+</body>
+</html>

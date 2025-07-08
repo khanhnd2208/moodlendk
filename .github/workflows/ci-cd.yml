@@ -68,3 +68,47 @@ jobs:
         grep -r "eval(" . --include="*.php" && echo "❌ eval() found!" && exit 1 || echo "✅ No eval() found"
         grep -r "\$_GET\[" . --include="*.php" | head -5 && echo "⚠️  Direct \$_GET usage found" || echo "✅ No direct \$_GET usage"
         echo "✅ Basic security scan complete"
+
+  deploy-ready:
+    name: 🚀 Deployment Ready Check
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: ✅ Validate Railway.app configuration
+      run: |
+        echo "🔍 Checking Railway.app deployment files..."
+        if [ ! -f "config-railway.php" ]; then
+          echo "❌ config-railway.php not found!"
+          exit 1
+        fi
+        if [ ! -f "railway.json" ]; then
+          echo "❌ railway.json not found!"
+          exit 1
+        fi
+        if [ ! -f "railway-start.sh" ]; then
+          echo "❌ railway-start.sh not found!"
+          exit 1
+        fi
+        echo "✅ Railway.app configuration validated"
+        
+    - name: 📋 Deployment Summary
+      run: |
+        echo "🎉 Deployment Ready!"
+        echo "📦 Branch: ${{ github.ref_name }}"
+        echo "📝 Commit: ${{ github.sha }}"
+        echo ""
+        echo "🚀 Available Deployment Options:"
+        echo "1. Railway.app: Connect your GitHub repo at railway.app"
+        echo "2. Oracle Cloud: Use ./deployment/deploy-oracle.sh"
+        echo "3. DigitalOcean: Use ./deployment/deploy-digitalocean.sh"
+        echo ""
+        echo "🌐 For Railway.app deployment:"
+        echo "   - Go to https://railway.app"
+        echo "   - Login with GitHub"
+        echo "   - Deploy from GitHub repository"
+        echo "   - Your site will be live in 3-5 minutes!"
