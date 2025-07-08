@@ -1,0 +1,52 @@
+name: 📄 Deploy GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - '*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout
+      uses: actions/checkout@v4
+
+    - name: 🔧 Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: 📋 Prepare documentation
+      run: |
+        echo "📚 Preparing documentation for GitHub Pages..."
+        # Copy documentation files to docs if needed
+        cp README.md docs/README.md || true
+        cp GITHUB_HOSTING_GUIDE.md docs/GITHUB_HOSTING_GUIDE.md || true
+        cp deploy-to-railway.md docs/deploy-to-railway.md || true
+        cp CODESPACES_GUIDE.md docs/CODESPACES_GUIDE.md || true
+        cp DEVELOPMENT_WORKFLOW.md docs/DEVELOPMENT_WORKFLOW.md || true
+        echo "✅ Documentation prepared"
+
+    - name: 📦 Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './docs'
+
+    - name: 🚀 Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
